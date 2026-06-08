@@ -371,15 +371,17 @@ export const checkPlans = async (config: ConnectionConfig) => {
     `
   );
 
-  try {
-    await Promise.all(
-      badPlans.map(({ planId }) =>
-        Exec(config, `DROP ${planId} FROM PLANCACHE`)
-      )
-    );
-  } catch (e) {
-    if (!(e instanceof SQLError && e.isPlanMissing())) {
-      throw e;
+  if (badPlans.length > 0) {
+    try {
+      await Promise.all(
+        badPlans.map(({ planId }) =>
+          Exec(config, `DROP ${planId} FROM PLANCACHE`)
+        )
+      );
+    } catch (e) {
+      if (!(e instanceof SQLError && e.isPlanMissing())) {
+        throw e;
+      }
     }
   }
 
