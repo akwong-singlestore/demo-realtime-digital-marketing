@@ -1,18 +1,25 @@
 name: build-docker-image
 
 on:
+  # Only trigger on push to main, no workflow_dispatch
+  # workflow_dispatch removed because it could allow non-main branches to tag as latest
+  # and because GHCR permissions need to be configured by org admin
   push:
     branches:
       - "main"
-    # Skip if this is a fork (not the upstream singlestore-labs repo)
-    # Forks don't have permission to push to singlestore-labs GHCR
-  workflow_dispatch: # Allow manual triggers
 
 jobs:
   docker:
     runs-on: ubuntu-latest
-    # Only run on the upstream repo, not forks
-    if: github.repository == 'singlestore-labs/demo-realtime-digital-marketing'
+    # Only run on the upstream repo, not forks, and only from main branch
+    if: |
+      github.repository == 'singlestore-labs/demo-realtime-digital-marketing' &&
+      github.ref == 'refs/heads/main'
+    # Requires organization admin to configure GHCR permissions:
+    # Settings -> Actions -> General -> Workflow permissions -> Read and write
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
