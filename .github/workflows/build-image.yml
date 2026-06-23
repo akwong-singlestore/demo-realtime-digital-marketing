@@ -1,14 +1,17 @@
 name: build-docker-image
 
-# DISABLED: Organization workflow permissions are set to read-only
-# An organization admin needs to enable write permissions at:
+# NOTE: This workflow is expected to fail until org permissions are fixed
+# The hosted demo (digital-marketing.labs.singlestore.com) uses GitHub Pages
+# and does NOT depend on this Docker build workflow.
+#
+# This workflow builds a Docker image for self-hosting scenarios.
+# To fix: An organization admin needs to enable write permissions at:
 # https://github.com/organizations/singlestore-labs/settings/actions
-# Once enabled, uncomment the 'on:' section below to re-enable this workflow
 
-# on:
-#   push:
-#     branches:
-#       - "main"
+on:
+  push:
+    branches:
+      - "main"
 
 jobs:
   docker:
