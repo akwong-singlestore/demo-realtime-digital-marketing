@@ -1,12 +1,14 @@
 name: build-docker-image
 
-on:
-  # Only trigger on push to main, no workflow_dispatch
-  # workflow_dispatch removed because it could allow non-main branches to tag as latest
-  # and because GHCR permissions need to be configured by org admin
-  push:
-    branches:
-      - "main"
+# DISABLED: Organization workflow permissions are set to read-only
+# An organization admin needs to enable write permissions at:
+# https://github.com/organizations/singlestore-labs/settings/actions
+# Once enabled, uncomment the 'on:' section below to re-enable this workflow
+
+# on:
+#   push:
+#     branches:
+#       - "main"
 
 jobs:
   docker:
