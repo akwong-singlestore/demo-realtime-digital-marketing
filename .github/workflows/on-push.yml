@@ -27,6 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     # Only deploy from upstream repo, not forks
     if: github.repository == 'singlestore-labs/demo-realtime-digital-marketing'
+    # Requires organization admin to configure write permissions:
+    # Settings -> Actions -> General -> Workflow permissions -> Read and write
+    permissions:
+      contents: write  # Needed to push to gh-pages branch
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
