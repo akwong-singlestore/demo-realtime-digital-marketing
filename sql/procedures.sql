@@ -52,7 +52,7 @@ BEGIN
   FROM _batch, cities;
 END //
 
-CREATE OR REPLACE PROCEDURE run_matching_process (
+CREATE OR REPLACE FUNCTION run_matching_process (
   _interval ENUM("second", "minute", "hour", "day", "week", "month")
 ) RETURNS BIGINT
 AS
